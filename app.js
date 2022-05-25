@@ -38,7 +38,7 @@ app.post("/", async (req, res, next) => {
         if (urlExists) {
             // const slugexist = await ShortUrl.findById()
             res.render("index", {
-              short_url: `/${urlExists.slug}`,
+              short_url: `${urlExists.slug}`,
             //   short_url: `http://localhost:4000/${urlExists.slug}`,
             });
             // throw createHttpError.BadRequest("Name Already exists");
@@ -54,7 +54,7 @@ app.post("/", async (req, res, next) => {
 
             const result = await shortUrl.save()
             res.render("index", {
-              short_url: `/${result.slug}`
+              short_url: `${result.slug}`
             //   short_url: `http://localhost:4000/${result.slug}`,
             });
         }
