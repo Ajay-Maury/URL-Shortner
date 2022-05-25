@@ -6,10 +6,11 @@ const ShortUrlSchema = new Schema({
   url: { type: String, required: true },
   slug: { type: String, required: true },
   // shortId:{type:String,required:true},
+  time:{type:String},
   expireAt: {
     type: Date,
     default: Date.now,
-    index: { expires: "1m" },
+    index: { expires: "5m" },
   },
 });
 
