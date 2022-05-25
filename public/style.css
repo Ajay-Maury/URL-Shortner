@@ -17,10 +17,11 @@ body {
   text-decoration: none;
 }
 
-#url {
+.url {
   display: block;
   width: 40vw;
   padding: 2%;
+  margin: 2%;
   border: none;
   /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
 }

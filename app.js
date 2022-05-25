@@ -1,6 +1,5 @@
 const express = require("express")
 const connect = require("./config/db");
-const shortId = require("shortid")
 const createHttpError = require("http-errors")
 const mongoose = require("mongoose")
 const path = require("path")
@@ -27,33 +26,43 @@ app.post("/", async (req, res, next) => {
     try {
         const { url } = req.body
         if (!url) {
-            throw createHttpError.BadRequest("Provide a valid url")
+            throw createHttpError.BadRequest("Provide a valid url  ")
         } 
-        const urlExists = await ShortUrl.findOne({ url });
-        // if (urlExists) {
-        //     res.render("index", {
-        //     //   short_url: `http://localhost:5000/${urlExists.shortId}`,
-        //       short_url: `${req.hostname}/${urlExists.shortId}`,
-        //     });
-        // }
+        const { slug } = req.body;
+        if (!slug) {
+            throw createHttpError.BadRequest("Provide a valid name  ")
+            
+        }
+        const urlExists = await ShortUrl.findOne({  $and: [{url} , {slug}]});
+        console.log(urlExists);
+        if (urlExists) {
+            // const slugexist = await ShortUrl.findById()
+            res.render("index", {
+                // short_url: `http://localhost:4000/${urlExists.slug}`,
+                  short_url: `${req.hostname}/${urlExists.slug}`,
+            });
+            // throw createHttpError.BadRequest("Name Already exists");
+        }
+        else {
 
-        const shortUrl = new ShortUrl({ url: url, shortId : shortId.generate() });
+            const shortUrl = new ShortUrl({ url: url, slug: slug });
 
-        const result = await shortUrl.save()
-        res.render("index", {
-        //   short_url: `http://localhost:4000/${result.shortId}`
-          short_url: `${req.hostname}/${result.shortId}`
-        });
+            const result = await shortUrl.save()
+            res.render("index", {
+                // short_url: `http://localhost:4000/${result.slug}`
+                  short_url: `${req.hostname}/${result.slug}`
+            });
+        }
     }
     catch (error) {
         next(error)
     }
 })
 
-app.get("/:shortId", async(req, res, next) =>{
+app.get("/:slug", async(req, res, next) =>{
    try {
-        const { shortId } = req.params;
-        const result = await ShortUrl.findOne({ shortId });
+        const { slug } = req.params;
+        const result = await ShortUrl.findOne({ slug });
        if (!result) {
             throw createHttpError.NotFound("short url does not exist")
        }
