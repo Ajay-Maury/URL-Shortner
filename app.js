@@ -13,7 +13,7 @@ app.use(express.urlencoded({ extended: false }))
 
 mongoose.connect(
   "mongodb+srv://pata_nahi:bhool_gaya@cluster0.lsvn5.mongodb.net/url-shortner?retryWrites=true&w=majority"
-).then(() => console.log("MongoDB Connecter"))
+).then(() => console.log("MongoDB Connected"))
 .catch((error)=>console.log("Error Connecting : ",error))
 
 app.set("view engine","ejs")
@@ -30,8 +30,8 @@ app.post("/", async (req, res, next) => {
         const urlExists = await ShortUrl.findOne({ url });
         if (urlExists) {
             res.render("index", {
-              short_url: `http://localhost:5000/${urlExists.shortId}`,
-            //   short_url: `${req.hostname}/${urlExists.shortId}`,
+            //   short_url: `http://localhost:5000/${urlExists.shortId}`,
+              short_url: `${req.hostname}/${urlExists.shortId}`,
             });
         }
 
@@ -39,8 +39,8 @@ app.post("/", async (req, res, next) => {
 
         const result = await shortUrl.save()
         res.render("index", {
-          short_url: `http://localhost:4000/${result.shortId}`
-          // short_url: `${req.hostname}/${result.shortId}`
+        //   short_url: `http://localhost:4000/${result.shortId}`
+          short_url: `${req.hostname}/${result.shortId}`
         });
     }
     catch (error) {
