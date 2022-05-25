@@ -80,4 +80,4 @@ app.use((err, req, res, next) => {
 //     console.log(error.message);
 //   }
 // });
-app.listen(4000, () => console.log("Listining at 4000"));
+app.listen(process.env.PORT || 4000, () => console.log("Listining at 4000"));
