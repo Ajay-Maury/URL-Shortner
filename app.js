@@ -38,27 +38,24 @@ app.post("/", async (req, res, next) => {
         if (urlExists) {
             // const slugexist = await ShortUrl.findById()
             res.render("index", {
-                short_url: `${req.hostname}/${urlExists.slug}`,
-                // short_url: `http://localhost:4000/${urlExists.slug}`,
+              short_url: `${req.hostname}/${urlExists.slug}`,
+            //   short_url: `http://localhost:4000/${urlExists.slug}`,
             });
             // throw createHttpError.BadRequest("Name Already exists");
         }
         else {
-            console.log(req.body);
-            let time = req.body.number * 60000;
-            console.log(time)
+            // console.log(req.body);
             const shortUrl = new ShortUrl({
               url: url,
               slug: slug,
-              time: time,
             });
             // console.log(shortUrl.expireAt);
             // shortUrl.expireAt = shortUrl.expireAt + time;
 
             const result = await shortUrl.save()
             res.render("index", {
-                short_url: `${req.hostname}/${result.slug}`
-                // short_url: `http://localhost:4000/${result.slug}`
+              short_url: `${req.hostname}/${result.slug}`
+            //   short_url: `http://localhost:4000/${result.slug}`,
             });
         }
     }
