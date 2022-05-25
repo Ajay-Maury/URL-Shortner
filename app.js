@@ -30,19 +30,19 @@ app.post("/", async (req, res, next) => {
             throw createHttpError.BadRequest("Provide a valid url")
         } 
         const urlExists = await ShortUrl.findOne({ url });
-        if (urlExists) {
-            res.render("index", {
-              short_url: `http://localhost:5000/${urlExists.shortId}`,
-            //   short_url: `${req.hostname}/${urlExists.shortId}`,
-            });
-        }
+        // if (urlExists) {
+        //     res.render("index", {
+        //     //   short_url: `http://localhost:5000/${urlExists.shortId}`,
+        //       short_url: `${req.hostname}/${urlExists.shortId}`,
+        //     });
+        // }
 
         const shortUrl = new ShortUrl({ url: url, shortId : shortId.generate() });
 
         const result = await shortUrl.save()
         res.render("index", {
-          short_url: `http://localhost:4000/${result.shortId}`
-        //   short_url: `${req.hostname}/${result.shortId}`
+        //   short_url: `http://localhost:4000/${result.shortId}`
+          short_url: `${req.hostname}/${result.shortId}`
         });
     }
     catch (error) {
