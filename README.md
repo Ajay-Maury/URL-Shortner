@@ -1,5 +1,5 @@
 # URL-Shortner
-# https://url-shorter-maker.herokuapp.com/
+# https://url-shorter-maker.cyclic.app
 
 This is a website that gives a short and custom-named link for a long URL. You have to give a URL and a custom name for the new URL short URL and then you will get its short URL.
 
